@@ -87,29 +87,48 @@ addEventListener('keydown', (e) => e.key === 'Escape' && closeSheet());
 
 let ar = null; // { mindar, stop }
 
-$('start').addEventListener('click', async () => {
+let launching = false;
+async function launch() {
+  if (launching || ar) return;
   $('err').hidden = true;
   if (!navigator.mediaDevices?.getUserMedia) {
     showError('Ovaj preglednik ne daje pristup kameri. Otvori stranicu u Safariju ili Chromeu na mobitelu.');
     return;
   }
-  const btn = $('start');
-  btn.disabled = true;
-  btn.lastChild.textContent = ' Učitavam…';
+  launching = true;
+  // switch to the camera view right away, so loading never looks like a dead button
+  closeSheet();
+  $('intro').hidden = true;
+  $('ar').hidden = false;
+  $('hudTop').hidden = false;
+  $('hudBottom').hidden = false;
+  $('reticle').hidden = false;
+  $('reticle').classList.remove('found');
+  $('dot').classList.remove('live');
+  $('status').textContent = 'Učitavam AR…';
   try {
+    // ask for the camera first (in parallel with the downloads), so a refusal gets a clear message
+    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' }, audio: false });
+    stream.getTracks().forEach((t) => t.stop());
     ar = await startAR();
   } catch (e) {
     console.error(e);
     teardownUI();
-    const denied = e && (e.name === 'NotAllowedError' || /denied|permission/i.test(String(e.message)));
+    const denied = e && (e.name === 'NotAllowedError' || e.name === 'SecurityError');
+    const noCam = e && (e.name === 'NotFoundError' || e.name === 'OverconstrainedError');
     showError(denied
-      ? 'Pristup kameri je odbijen. Dopusti kameru u postavkama preglednika i pokušaj ponovno.'
-      : 'AR se nije uspio pokrenuti. Provjeri vezu i pokušaj ponovno.');
+      ? 'Pristup kameri je odbijen. Dopusti kameru za ovu stranicu (ikona lokota pokraj adrese) i pokušaj ponovno.'
+      : noCam
+        ? 'Nije pronađena kamera. Otvori ovu stranicu na mobitelu.'
+        : 'AR se nije uspio pokrenuti. Provjeri vezu i pokušaj ponovno.');
   } finally {
-    btn.disabled = false;
-    btn.lastChild.textContent = ' Pokreni AR kameru';
+    launching = false;
   }
-});
+}
+$('start').addEventListener('click', launch);
+
+// Visitors arriving from the poster's QR code are on a phone: start the camera without an extra tap.
+if (matchMedia('(pointer: coarse)').matches) launch();
 
 $('close').addEventListener('click', () => {
   ar?.stop();
@@ -558,11 +577,6 @@ async function startAR() {
   container.addEventListener('click', onTap);
 
   /* ---------- go ---------- */
-  $('intro').hidden = true;
-  $('hudTop').hidden = false;
-  $('hudBottom').hidden = false;
-  $('reticle').hidden = false;
-  $('reticle').classList.remove('found');
   $('status').textContent = 'Pokrećem kameru…';
 
   await mindar.start();
