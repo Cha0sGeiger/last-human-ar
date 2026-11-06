@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="hr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Last (Hu)man Standing · AR</title>
+<meta name="description" content="Uperi kameru u poster: agenda, govornici i prijava za In the Loop AI meetup, 10. studenoga u HUB385.">
+<meta property="og:title" content="Last (Hu)man Standing · AR poster">
+<meta property="og:description" content="In the Loop · AI meetup — utorak, 10. studenoga, 18:00, HUB385 Zagreb.">
+<meta property="og:image" content="https://cha0sgeiger.github.io/last-human-ar/assets/og.jpg">
+<meta name="theme-color" content="#0d1124">
+<link rel="icon" href="assets/icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* Layout: one dark stage. Landing card → full-bleed camera with a thin HUD and a bottom sheet. */
+  :root {
+    --ink: #0d1124;
+    --ink-2: #161a34;
+    --ink-3: #20254a;
+    --paper: #f3f1ec;
+    --mute: #9097b0;
+    --blue: #4a5cff;
+    --violet: #9a5cf0;
+    --pink: #d04fc4;
+    --grad: linear-gradient(90deg, var(--blue), var(--violet) 50%, var(--pink));
+    --font: "Outfit", ui-rounded, "SF Pro Rounded", system-ui, -apple-system, "Segoe UI", sans-serif;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--ink); color: var(--paper); font-family: var(--font); -webkit-font-smoothing: antialiased; }
+  body { overflow: hidden; }
+  button, a { font: inherit; color: inherit; -webkit-tap-highlight-color: transparent; }
+  button:focus-visible, a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
+  [hidden] { display: none !important; }
+
+  /* ---------- landing ---------- */
+  #intro {
+    position: fixed; inset: 0; overflow-y: auto; z-index: 20;
+    background:
+      radial-gradient(60% 40% at 85% 8%, rgba(74, 70, 190, .45), transparent 70%),
+      var(--ink);
+    padding: max(28px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  }
+  .wrap { max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px; }
+  .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
+  h1 { margin: 8px 0 0; font-size: clamp(38px, 11vw, 52px); line-height: 1.02; font-weight: 600; letter-spacing: -.02em; text-wrap: balance; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, #7b5cf5, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { margin: 12px 0 0; font-size: 18px; line-height: 1.45; color: #c4c7d6; }
+  .stage { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 18px; overflow: hidden; background: var(--ink-2); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06); }
+  .stage img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stage::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 22%; top: -22%;
+    background: linear-gradient(180deg, transparent, rgba(154, 92, 240, .35) 70%, rgba(255,255,255,.7) 99%, transparent);
+    mix-blend-mode: screen; animation: sweep 3.6s cubic-bezier(.6,0,.3,1) infinite 0.6s;
+  }
+  @keyframes sweep { 0% { top: -22% } 55%, 100% { top: 100% } }
+  .actions { display: flex; flex-direction: column; gap: 12px; }
+  .btn {
+    display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 22px;
+    border: 0; border-radius: 16px; font-size: 18px; font-weight: 600; text-decoration: none; cursor: pointer;
+  }
+  .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 12px 30px -10px rgba(154, 92, 240, .7); }
+  .btn-ghost { background: var(--ink-2); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  .btn svg { width: 22px; height: 22px; flex: none; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .note { font-size: 14px; line-height: 1.5; color: var(--mute); margin: 0; }
+  .note a { color: #c4c7d6; }
+  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 18px; }
+  .facts div { padding-right: 10px; min-width: 0; }
+  .facts div + div { padding-left: 12px; border-left: 1px solid rgba(255,255,255,.08); }
+  .facts dt { font-size: 11px; letter-spacing: .16em; font-weight: 600; color: var(--mute); }
+  .facts dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.25; }
+  .facts dd small { display: block; font-weight: 400; color: #c4c7d6; font-size: 14px; margin-top: 2px; }
+  .err { background: rgba(208, 79, 196, .14); border: 1px solid rgba(208, 79, 196, .4); color: #f2d6ee; padding: 12px 14px; border-radius: 12px; font-size: 15px; line-height: 1.45; margin: 0; }
+  .bar { height: 6px; border-radius: 3px; background: var(--grad); }
+
+  /* ---------- AR ---------- */
+  #ar { position: fixed; inset: 0; z-index: 1; background: #000; }
+  #ar video { object-fit: cover; }
+  .hud { position: fixed; z-index: 10; left: 0; right: 0; pointer-events: none; }
+  .hud-top { top: 0; padding: max(14px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) 0 max(16px, env(safe-area-inset-left)); display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .pill { pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; background: rgba(13, 17, 36, .78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; font-weight: 500; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mute); flex: none; }
+  .dot.live { background: #4ade80; box-shadow: 0 0 0 4px rgba(74, 222, 128, .22); }
+  .icon-btn { pointer-events: auto; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(13, 17, 36, .78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: grid; place-items: center; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  .icon-btn svg { width: 20px; height: 20px; }
+
+  .reticle { position: fixed; z-index: 9; pointer-events: none; left: 50%; top: 46%; width: min(68vw, 46vh); aspect-ratio: 4 / 5; transform: translate(-50%, -50%); transition: opacity .35s, transform .35s; }
+  .reticle i { position: absolute; width: 34px; height: 34px; border: 3px solid #fff; opacity: .9; }
+  .reticle i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 14px; }
+  .reticle i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 14px; }
+  .reticle i:nth-child(3) { left: 0; bottom: 0; border-right: 0; border-top: 0; border-bottom-left-radius: 14px; }
+  .reticle i:nth-child(4) { right: 0; bottom: 0; border-left: 0; border-top: 0; border-bottom-right-radius: 14px; }
+  .reticle p { position: absolute; left: 50%; bottom: -54px; transform: translateX(-50%); white-space: nowrap; margin: 0; font-size: 15px; font-weight: 500; text-shadow: 0 1px 8px rgba(0,0,0,.7); }
+  .reticle.found { opacity: 0; transform: translate(-50%, -50%) scale(1.12); }
+  .reticle::after { content: ""; position: absolute; left: 6%; right: 6%; height: 2px; top: 10%; background: linear-gradient(90deg, transparent, #fff, transparent); opacity: .7; animation: scan 2.4s ease-in-out infinite alternate; }
+  @keyframes scan { to { top: 90%; } }
+
+  .hud-bottom { bottom: 0; padding: 0 max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); display: flex; flex-direction: column; align-items: center; gap: 12px; }
+  .toast { padding: 10px 16px; border-radius: 999px; background: rgba(13, 17, 36, .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; transition: opacity .4s, transform .4s; }
+  .toast.off { opacity: 0; transform: translateY(8px); }
+  .dock { pointer-events: auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; width: 100%; max-width: 440px; }
+  .dock .btn { min-height: 52px; font-size: 16px; }
+  .dock .btn-ghost { background: rgba(13, 17, 36, .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+
+  .sheet { position: fixed; z-index: 15; left: 0; right: 0; bottom: 0; transform: translateY(105%); transition: transform .38s cubic-bezier(.2,.9,.2,1); padding: 0 max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
+  .sheet.open { transform: none; }
+  .sheet-card { max-width: 480px; margin: 0 auto; background: var(--ink-2); border-radius: 24px; padding: 22px 22px 18px; box-shadow: 0 -10px 50px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 14px; }
+  .sheet-head { display: flex; align-items: center; gap: 14px; }
+  .num { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 19px; font-weight: 600; flex: none; color: #fff; }
+  .sheet-head .eyebrow { flex: 1; }
+  .sheet h2 { margin: 0; font-size: 24px; line-height: 1.18; font-weight: 600; text-wrap: balance; }
+  .who { margin: 0; font-size: 16px; color: #c4c7d6; }
+  .who b { color: var(--paper); font-weight: 600; }
+  .sheet-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sheet-nav .btn { min-height: 48px; font-size: 15px; }
+  .scrim { position: fixed; inset: 0; z-index: 14; background: rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: opacity .3s; }
+  .scrim.on { opacity: 1; pointer-events: auto; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stage::after, .reticle::after { animation: none; display: none; }
+    .sheet, .toast, .reticle { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<section id="intro" aria-labelledby="t">
+  <div class="wrap">
+    <header>
+      <div class="eyebrow">In the Loop · AI meetup</div>
+      <h1 id="t">Last (Hu)<em>man</em> Standing</h1>
+      <p class="lede">Uperi kameru u poster. Agenda, govornici i prijava pojavit će se na papiru.</p>
+    </header>
+
+    <div class="stage"><img src="assets/poster-ar.png" alt="Poster: Last (Hu)man Standing, AI agenti kao novi developerski tim. Tri predavanja, utorak 10. studenoga u 18:00, HUB385 Zagreb." width="1080" height="1350"></div>
+
+    <p class="err" id="err" role="alert" hidden></p>
+
+    <div class="actions">
+      <button class="btn btn-primary" id="start" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg>
+        Pokreni AR kameru
+      </button>
+      <div class="row">
+        <a class="btn btn-ghost" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se</a>
+        <a class="btn btn-ghost" href="assets/last-human-standing.ics">U kalendar</a>
+      </div>
+      <p class="note">Kamera radi samo u tvom pregledniku, ništa se ne snima ni šalje. Nemaš poster pri ruci? <a href="assets/poster-ar.png" target="_blank" rel="noopener">Otvori poster</a> na drugom ekranu i uperi kameru u njega.</p>
+    </div>
+
+    <dl class="facts">
+      <div><dt>KADA</dt><dd>Utorak, 10. studenoga<small>18:00 · <span data-countdown>uskoro</span></small></dd></div>
+      <div><dt>GDJE</dt><dd>HUB385<small>Zagreb</small></dd></div>
+      <div><dt>ULAZ</dt><dd>Besplatan<small>Uz prijavu</small></dd></div>
+    </dl>
+    <div class="bar" aria-hidden="true"></div>
+  </div>
+</section>
+
+<div id="ar" hidden></div>
+
+<div class="hud hud-top" id="hudTop" hidden>
+  <span class="pill"><span class="dot" id="dot"></span><span id="status">Tražim poster…</span></span>
+  <button class="icon-btn" id="close" type="button" aria-label="Zatvori kameru">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+  </button>
+</div>
+
+<div class="reticle" id="reticle" hidden><i></i><i></i><i></i><i></i><p>Uperi kameru u cijeli poster</p></div>
+
+<div class="hud hud-bottom" id="hudBottom" hidden>
+  <div class="toast off" id="toast">Dodirni predavanje ili karticu na posteru</div>
+  <div class="dock">
+    <a class="btn btn-primary" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se na Meetupu</a>
+    <a class="btn btn-ghost" href="assets/last-human-standing.ics">U kalendar</a>
+  </div>
+</div>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" aria-hidden="true">
+  <div class="sheet-card">
+    <div class="sheet-head">
+      <div class="num" id="sheetNum">01</div>
+      <div class="eyebrow" id="sheetEyebrow">Predavanje 1 od 3</div>
+      <button class="icon-btn" id="sheetClose" type="button" aria-label="Zatvori">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+    <h2 id="sheetTitle"></h2>
+    <p class="who" id="sheetWho"></p>
+    <div class="sheet-nav">
+      <button class="btn btn-ghost" id="sheetNext" type="button">Sljedeće</button>
+      <a class="btn btn-primary" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se</a>
+    </div>
+  </div>
+</div>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/",
+    "mindar-image-three": "https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-three.prod.js"
+  }
+}
+</script>
+<script type="module" src="app.js"></script>
+</body>
+</html>
