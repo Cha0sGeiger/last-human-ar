@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Last (Hu)man Standing · AR</title>
-<meta name="description" content="Uperi kameru u poster: agenda, govornici i prijava za In the Loop AI meetup, 10. studenoga u HUB385.">
+<meta name="description" content="Uperi kameru u poster: pozivnica, agenda i prijava za In the Loop AI meetup, 10. studenoga u HUB385.">
 <meta property="og:title" content="Last (Hu)man Standing · AR poster">
 <meta property="og:description" content="In the Loop · AI meetup — utorak, 10. studenoga, 18:00, HUB385 Zagreb.">
 <meta property="og:image" content="https://cha0sgeiger.github.io/last-human-ar/assets/og.jpg">
@@ -14,13 +14,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  /* Layout: one dark stage. Landing card → full-bleed camera with a thin HUD and a bottom sheet. */
+  /* Layout: landing → full-bleed camera → the invitation flies off the poster and becomes a full-screen page. */
   :root {
     --ink: #0d1124;
     --ink-2: #161a34;
     --ink-3: #20254a;
     --paper: #f3f1ec;
     --mute: #9097b0;
+    --soft: #c4c7d6;
     --blue: #4a5cff;
     --violet: #9a5cf0;
     --pink: #d04fc4;
@@ -35,28 +36,7 @@
   button:focus-visible, a:focus-visible { outline: 3px solid var(--violet); outline-offset: 3px; }
   [hidden] { display: none !important; }
 
-  /* ---------- landing ---------- */
-  #intro {
-    position: fixed; inset: 0; overflow-y: auto; z-index: 20;
-    background:
-      radial-gradient(60% 40% at 85% 8%, rgba(74, 70, 190, .45), transparent 70%),
-      var(--ink);
-    padding: max(28px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
-  }
-  .wrap { max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px; }
   .eyebrow { font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--mute); }
-  h1 { margin: 8px 0 0; font-size: clamp(38px, 11vw, 52px); line-height: 1.02; font-weight: 600; letter-spacing: -.02em; text-wrap: balance; }
-  h1 em { font-style: normal; background: linear-gradient(90deg, #7b5cf5, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
-  .lede { margin: 12px 0 0; font-size: 18px; line-height: 1.45; color: #c4c7d6; }
-  .stage { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 18px; overflow: hidden; background: var(--ink-2); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06); }
-  .stage img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  .stage::after {
-    content: ""; position: absolute; left: 0; right: 0; height: 22%; top: -22%;
-    background: linear-gradient(180deg, transparent, rgba(154, 92, 240, .35) 70%, rgba(255,255,255,.7) 99%, transparent);
-    mix-blend-mode: screen; animation: sweep 3.6s cubic-bezier(.6,0,.3,1) infinite 0.6s;
-  }
-  @keyframes sweep { 0% { top: -22% } 55%, 100% { top: 100% } }
-  .actions { display: flex; flex-direction: column; gap: 12px; }
   .btn {
     display: flex; align-items: center; justify-content: center; gap: 10px; min-height: 56px; padding: 0 22px;
     border: 0; border-radius: 16px; font-size: 18px; font-weight: 600; text-decoration: none; cursor: pointer;
@@ -64,19 +44,32 @@
   .btn-primary { background: var(--grad); color: #fff; box-shadow: 0 12px 30px -10px rgba(154, 92, 240, .7); }
   .btn-ghost { background: var(--ink-2); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
   .btn svg { width: 22px; height: 22px; flex: none; }
+
+  /* ---------- landing ---------- */
+  #intro {
+    position: fixed; inset: 0; overflow-y: auto; z-index: 20;
+    background: radial-gradient(60% 40% at 85% 8%, rgba(74, 70, 190, .45), transparent 70%), var(--ink);
+    padding: max(28px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(28px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  }
+  .wrap { max-width: 460px; margin: 0 auto; display: flex; flex-direction: column; gap: 26px; }
+  h1 { margin: 8px 0 0; font-size: clamp(38px, 11vw, 52px); line-height: 1.02; font-weight: 600; letter-spacing: -.02em; text-wrap: balance; }
+  h1 em { font-style: normal; background: linear-gradient(90deg, #7b5cf5, var(--pink)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lede { margin: 12px 0 0; font-size: 18px; line-height: 1.45; color: var(--soft); }
+  .stage { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 18px; overflow: hidden; background: var(--ink-2); box-shadow: 0 30px 60px -20px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06); }
+  .stage img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .stage::after {
+    content: ""; position: absolute; left: 0; right: 0; height: 22%; top: -22%;
+    background: linear-gradient(180deg, transparent, rgba(154, 92, 240, .35) 70%, rgba(255,255,255,.7) 99%, transparent);
+    mix-blend-mode: screen; animation: sweep 3.6s cubic-bezier(.6,0,.3,1) infinite .6s;
+  }
+  @keyframes sweep { 0% { top: -22% } 55%, 100% { top: 100% } }
+  .actions { display: flex; flex-direction: column; gap: 12px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .note { font-size: 14px; line-height: 1.5; color: var(--mute); margin: 0; }
-  .note a { color: #c4c7d6; }
-  .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; border-top: 1px solid rgba(255,255,255,.08); padding-top: 18px; }
-  .facts div { padding-right: 10px; min-width: 0; }
-  .facts div + div { padding-left: 12px; border-left: 1px solid rgba(255,255,255,.08); }
-  .facts dt { font-size: 11px; letter-spacing: .16em; font-weight: 600; color: var(--mute); }
-  .facts dd { margin: 6px 0 0; font-size: 16px; font-weight: 600; line-height: 1.25; }
-  .facts dd small { display: block; font-weight: 400; color: #c4c7d6; font-size: 14px; margin-top: 2px; }
+  .note a { color: var(--soft); }
   .err { background: rgba(208, 79, 196, .14); border: 1px solid rgba(208, 79, 196, .4); color: #f2d6ee; padding: 12px 14px; border-radius: 12px; font-size: 15px; line-height: 1.45; margin: 0; }
-  .bar { height: 6px; border-radius: 3px; background: var(--grad); }
 
-  /* ---------- AR ---------- */
+  /* ---------- camera ---------- */
   #ar { position: fixed; inset: 0; z-index: 1; background: #000; }
   #ar video { object-fit: cover; }
   .hud { position: fixed; z-index: 10; left: 0; right: 0; pointer-events: none; }
@@ -84,10 +77,12 @@
   .pill { pointer-events: auto; display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 999px; background: rgba(13, 17, 36, .78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; font-weight: 500; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--mute); flex: none; }
   .dot.live { background: #4ade80; box-shadow: 0 0 0 4px rgba(74, 222, 128, .22); }
-  .icon-btn { pointer-events: auto; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(13, 17, 36, .78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: grid; place-items: center; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
+  .icon-btn { pointer-events: auto; width: 44px; height: 44px; border-radius: 50%; border: 0; background: rgba(13, 17, 36, .78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: grid; place-items: center; cursor: pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); flex: none; }
   .icon-btn svg { width: 20px; height: 20px; }
+  .hud-bottom { bottom: 0; display: flex; justify-content: center; padding: 0 max(16px, env(safe-area-inset-right)) max(20px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); }
+  .skip { pointer-events: auto; border: 0; cursor: pointer; padding: 12px 18px; border-radius: 999px; background: rgba(13, 17, 36, .78); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 15px; font-weight: 500; color: var(--soft); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); }
 
-  .reticle { position: fixed; z-index: 9; pointer-events: none; left: 50%; top: 46%; width: min(68vw, 46vh); aspect-ratio: 4 / 5; transform: translate(-50%, -50%); transition: opacity .35s, transform .35s; }
+  .reticle { position: fixed; z-index: 9; pointer-events: none; left: 50%; top: 47%; width: min(68vw, 46vh); aspect-ratio: 4 / 5; transform: translate(-50%, -50%); transition: opacity .35s, transform .35s; }
   .reticle i { position: absolute; width: 34px; height: 34px; border: 3px solid #fff; opacity: .9; }
   .reticle i:nth-child(1) { left: 0; top: 0; border-right: 0; border-bottom: 0; border-top-left-radius: 14px; }
   .reticle i:nth-child(2) { right: 0; top: 0; border-left: 0; border-bottom: 0; border-top-right-radius: 14px; }
@@ -98,66 +93,69 @@
   .reticle::after { content: ""; position: absolute; left: 6%; right: 6%; height: 2px; top: 10%; background: linear-gradient(90deg, transparent, #fff, transparent); opacity: .7; animation: scan 2.4s ease-in-out infinite alternate; }
   @keyframes scan { to { top: 90%; } }
 
-  .hud-bottom { bottom: 0; padding: 0 max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left)); display: flex; flex-direction: column; align-items: center; gap: 12px; }
-  .toast { padding: 10px 16px; border-radius: 999px; background: rgba(13, 17, 36, .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); font-size: 14px; transition: opacity .4s, transform .4s; }
-  .toast.off { opacity: 0; transform: translateY(8px); }
-  .dock { pointer-events: auto; display: grid; grid-template-columns: 1.4fr 1fr; gap: 10px; width: 100%; max-width: 440px; }
-  .dock .btn { min-height: 52px; font-size: 16px; }
-  .dock .btn-ghost { background: rgba(13, 17, 36, .82); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-
-  .sheet { position: fixed; z-index: 15; left: 0; right: 0; bottom: 0; transform: translateY(105%); transition: transform .38s cubic-bezier(.2,.9,.2,1); padding: 0 max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left)); }
-  .sheet.open { transform: none; }
-  .sheet-card { max-width: 480px; margin: 0 auto; background: var(--ink-2); border-radius: 24px; padding: 22px 22px 18px; box-shadow: 0 -10px 50px rgba(0,0,0,.5), inset 0 0 0 1px rgba(255,255,255,.08); display: flex; flex-direction: column; gap: 14px; }
-  .sheet-head { display: flex; align-items: center; gap: 14px; }
-  .num { width: 46px; height: 46px; border-radius: 12px; display: grid; place-items: center; font-size: 19px; font-weight: 600; flex: none; color: #fff; }
-  .sheet-head .eyebrow { flex: 1; }
-  .sheet h2 { margin: 0; font-size: 24px; line-height: 1.18; font-weight: 600; text-wrap: balance; }
-  .who { margin: 0; font-size: 16px; color: #c4c7d6; }
-  .who b { color: var(--paper); font-weight: 600; }
-  .sheet-nav { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .sheet-nav .btn { min-height: 48px; font-size: 15px; }
-  .scrim { position: fixed; inset: 0; z-index: 14; background: rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: opacity .3s; }
-  .scrim.on { opacity: 1; pointer-events: auto; }
-
-  /* talk tags pinned to the poster (positioned every frame from JS) */
-  #tags { position: fixed; inset: 0; z-index: 8; pointer-events: none; }
-  .tag {
-    position: absolute; left: 0; top: 0; transform-origin: 100% 50%; pointer-events: auto; cursor: pointer;
-    display: flex; align-items: center; gap: 7px; height: 36px; padding: 0 12px 0 4px; border: 0; border-radius: 999px;
-    background: rgba(13, 17, 36, .9); box-shadow: inset 0 0 0 2px var(--c), 0 6px 18px rgba(0,0,0,.45);
-    font-size: 14px; font-weight: 600; white-space: nowrap; will-change: transform;
+  /* ---------- the invitation ---------- */
+  .invite { position: fixed; inset: 0; z-index: 30; opacity: 0; transition: opacity .45s ease; }
+  .invite.show { opacity: 1; }
+  .invite-bg { position: absolute; inset: 0; background: radial-gradient(70% 45% at 80% 0%, rgba(74, 70, 190, .55), transparent 70%), rgba(13, 17, 36, .82); backdrop-filter: blur(22px) saturate(1.2); -webkit-backdrop-filter: blur(22px) saturate(1.2); }
+  .invite.solid .invite-bg { background: radial-gradient(70% 45% at 80% 0%, rgba(74, 70, 190, .55), transparent 70%), var(--ink); }
+  #fx { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+  .inv-scroll { position: absolute; inset: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+  .inv {
+    max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; gap: 22px;
+    padding: max(22px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) calc(150px + env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
   }
-  .tag::after { content: "›"; font-size: 20px; line-height: 1; margin-top: -2px; color: var(--c); filter: brightness(1.5); }
-  .tag-n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--c); color: #fff; font-size: 13px; }
-  body.sheet-open #tags { display: none; }
-
-  /* dock */
-  .tools { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
-  .tool {
-    display: flex; align-items: center; gap: 8px; min-height: 58px; padding: 8px 10px; border: 0; border-radius: 16px; cursor: pointer; text-decoration: none; text-align: left;
-    background: rgba(13, 17, 36, .85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1);
-    font-size: 15px; font-weight: 600; line-height: 1.15; min-width: 0;
+  .inv-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+  .inv-title { margin: 0; font-size: clamp(46px, 14.5vw, 66px); line-height: .98; font-weight: 600; letter-spacing: -.025em; }
+  .inv-title .w { display: inline-block; }
+  .inv-title .man {
+    display: inline-block; background: linear-gradient(90deg, #7b5cf5, #ff6ae6, #7b5cf5); background-size: 200% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent; animation: shimmer 4s linear infinite;
   }
-  .tool svg { width: 22px; height: 22px; flex: none; color: #b9a6ff; }
-  .tool span { min-width: 0; }
-  .tool small { display: block; font-size: 12px; font-weight: 400; color: #c4c7d6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .dock { display: flex; flex-direction: column; gap: 8px; }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+  .inv-sub { margin: 10px 0 0; font-size: 20px; line-height: 1.35; color: var(--soft); }
+  .when { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; padding: 10px 16px 10px 12px; border-radius: 999px; background: rgba(154, 92, 240, .16); box-shadow: inset 0 0 0 1px rgba(154, 92, 240, .45); font-size: 16px; font-weight: 500; }
+  .when b { font-weight: 600; }
+  .pulse { width: 10px; height: 10px; border-radius: 50%; background: #ff6ae6; box-shadow: 0 0 0 0 rgba(255, 106, 230, .6); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(255, 106, 230, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 106, 230, 0); } }
 
-  /* sheet content */
-  .sheet-body { display: flex; flex-direction: column; gap: 12px; max-height: 60vh; overflow-y: auto; }
-  .agenda-row { display: flex; gap: 14px; align-items: flex-start; text-align: left; padding: 14px; border: 0; border-radius: 16px; background: var(--ink-3); cursor: pointer; }
-  .agenda-row .num { width: 40px; height: 40px; font-size: 16px; border-radius: 11px; }
-  .agenda-text { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
-  .agenda-text strong { font-size: 17px; line-height: 1.25; font-weight: 600; }
-  .agenda-text span { font-size: 14px; color: #c4c7d6; }
-  .talk-head { display: flex; flex-direction: column; gap: 14px; }
-  .num.big { width: 52px; height: 52px; font-size: 21px; border-radius: 14px; }
-  .talk-head h2 { margin: 0; font-size: 26px; line-height: 1.18; font-weight: 600; text-wrap: balance; }
-  .who { line-height: 1.45; font-size: 17px; }
+  .talks { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+  .talk { display: flex; gap: 14px; align-items: flex-start; padding: 16px; border-radius: 18px; background: rgba(24, 28, 58, .92); box-shadow: inset 0 0 0 1px rgba(255,255,255,.08); }
+  .num { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 17px; font-weight: 600; flex: none; color: #fff; background: var(--c); box-shadow: 0 8px 20px -6px var(--c); }
+  .talk-text { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .talk-text strong { font-size: 18px; line-height: 1.25; font-weight: 600; text-wrap: balance; }
+  .talk-text span { font-size: 15px; line-height: 1.35; color: var(--soft); }
+  .talk-text span b { color: var(--paper); font-weight: 600; }
+
+  .inv-facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid rgba(255,255,255,.1); padding-top: 18px; }
+  .inv-facts > div { min-width: 0; padding-right: 10px; display: flex; flex-direction: column; gap: 4px; }
+  .inv-facts > div + div { padding-left: 12px; border-left: 1px solid rgba(255,255,255,.1); }
+  .inv-facts dt { font-size: 11px; letter-spacing: .16em; font-weight: 600; color: var(--mute); }
+  .inv-facts dd { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.25; }
+  .inv-facts small { display: block; font-weight: 400; color: var(--soft); font-size: 14px; }
+  .inv-facts a { margin-top: 6px; font-size: 14px; font-weight: 600; color: #c9b8ff; text-decoration: none; }
+  .inv-facts a::after { content: " ›"; }
+
+  .inv-cta {
+    position: absolute; left: 0; right: 0; bottom: 0; display: flex; gap: 10px; justify-content: center;
+    padding: 28px max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+    background: linear-gradient(180deg, transparent, rgba(13,17,36,.92) 40%);
+  }
+  .inv-cta .btn-primary { flex: 1; max-width: 400px; }
+  .inv-cta .icon-btn { width: 56px; height: 56px; border-radius: 16px; }
+
+  /* entrance choreography: each element carries its step in --d */
+  .invite .a { opacity: 0; }
+  .invite.show .a { animation: rise .75s cubic-bezier(.2, .9, .2, 1) both; animation-delay: calc(var(--d, 0) * 90ms + 120ms); }
+  @keyframes rise { from { opacity: 0; transform: translateY(26px) scale(.97); filter: blur(6px); } to { opacity: 1; transform: none; filter: none; } }
+  .invite .man { opacity: 0; }
+  .invite.show .man { animation: drop 1s cubic-bezier(.3, 1.5, .5, 1) both .55s, shimmer 4s linear infinite 1.6s; }
+  @keyframes drop { from { opacity: 0; transform: translateY(-70px) scale(1.9) rotate(-8deg); filter: blur(8px); } 60% { opacity: 1; filter: none; } to { opacity: 1; transform: none; } }
 
   @media (prefers-reduced-motion: reduce) {
-    .stage::after, .reticle::after { animation: none; display: none; }
-    .sheet, .toast, .reticle { transition: none; }
+    .stage::after, .reticle::after, .pulse { animation: none; }
+    .invite.show .a, .invite.show .man { animation: none; opacity: 1; }
+    .inv-title .man { animation: none; }
+    .reticle, .invite { transition: none; }
   }
 </style>
 </head>
@@ -168,7 +166,7 @@
     <header>
       <div class="eyebrow">In the Loop · AI meetup</div>
       <h1 id="t">Last (Hu)<em>man</em> Standing</h1>
-      <p class="lede">Uperi kameru u poster. Agenda, govornici i prijava pojavit će se na papiru.</p>
+      <p class="lede">Uperi kameru u poster i pozivnica će izletjeti s papira.</p>
     </header>
 
     <div class="stage"><img src="assets/poster-ar.png" alt="Poster: Last (Hu)man Standing, AI agenti kao novi developerski tim. Tri predavanja, utorak 10. studenoga u 18:00, HUB385 Zagreb." width="1080" height="1350"></div>
@@ -181,18 +179,11 @@
         Pokreni AR kameru
       </button>
       <div class="row">
+        <button class="btn btn-ghost" id="openInvite" type="button">Pozivnica</button>
         <a class="btn btn-ghost" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se</a>
-        <a class="btn btn-ghost" href="assets/last-human-standing.ics">U kalendar</a>
       </div>
       <p class="note">Kamera radi samo u tvom pregledniku, ništa se ne snima ni šalje. Nemaš poster pri ruci? <a href="assets/poster-ar.png" target="_blank" rel="noopener">Otvori poster</a> na drugom ekranu i uperi kameru u njega.</p>
     </div>
-
-    <dl class="facts">
-      <div><dt>KADA</dt><dd>Utorak, 10. studenoga<small>18:00 · <span data-countdown>uskoro</span></small></dd></div>
-      <div><dt>GDJE</dt><dd>HUB385<small>Zagreb</small></dd></div>
-      <div><dt>ULAZ</dt><dd>Besplatan<small>Uz prijavu</small></dd></div>
-    </dl>
-    <div class="bar" aria-hidden="true"></div>
   </div>
 </section>
 
@@ -204,49 +195,45 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
 </div>
-
 <div class="reticle" id="reticle" hidden><i></i><i></i><i></i><i></i><p>Uperi kameru u cijeli poster</p></div>
-
-<div id="tags" hidden>
-  <button class="tag" type="button" data-i="0" style="--c:#4a5cff"><span class="tag-n">01</span>Detalji</button>
-  <button class="tag" type="button" data-i="1" style="--c:#9a5cf0"><span class="tag-n">02</span>Detalji</button>
-  <button class="tag" type="button" data-i="2" style="--c:#d04fc4"><span class="tag-n">03</span>Detalji</button>
-</div>
-
 <div class="hud hud-bottom" id="hudBottom" hidden>
-  <div class="toast off" id="toast">Dodirni „Detalji“ uz predavanje</div>
-  <div class="dock">
-    <div class="tools">
-      <button class="tool" id="agendaBtn" type="button">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6h11M9 12h11M9 18h11"/><circle cx="4.5" cy="6" r="1.2" fill="currentColor"/><circle cx="4.5" cy="12" r="1.2" fill="currentColor"/><circle cx="4.5" cy="18" r="1.2" fill="currentColor"/></svg>
-        <span>Agenda<small>od 18:00</small></span>
-      </button>
-      <a class="tool" href="assets/last-human-standing.ics">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15.5" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg>
-        <span>Kalendar<small data-countdown>uskoro</small></span>
-      </a>
-      <a class="tool" data-link="maps" href="#" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
-        <span>Karta<small>HUB385</small></span>
-      </a>
-    </div>
-    <a class="btn btn-primary" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se na Meetupu · besplatno</a>
-  </div>
+  <button class="skip" id="skip" type="button">Nemaš poster? Otvori pozivnicu</button>
 </div>
 
-<div class="scrim" id="scrim"></div>
-<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetEyebrow" aria-hidden="true">
-  <div class="sheet-card">
-    <div class="sheet-head">
-      <div class="eyebrow" id="sheetEyebrow">Agenda</div>
-      <button class="icon-btn" id="sheetClose" type="button" aria-label="Zatvori">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
-      </button>
+<section class="invite" id="invite" hidden aria-labelledby="invTitle">
+  <div class="invite-bg"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="inv-scroll">
+    <div class="inv">
+      <div class="inv-top a" style="--d:0">
+        <span class="eyebrow">In the Loop · AI meetup</span>
+      </div>
+      <header>
+        <h2 class="inv-title" id="invTitle"><span class="w a" style="--d:1">Last</span> <span class="w a" style="--d:2">(Hu)</span><span class="man">man</span> <span class="w a" style="--d:3">Standing</span></h2>
+        <p class="inv-sub a" style="--d:4">AI agenti kao novi developerski tim</p>
+      </header>
+      <div class="when a" style="--d:5"><span class="pulse"></span><span><b data-countdown-cap>Uskoro</b> · utorak, 10. studenoga u 18:00</span></div>
+
+      <ol class="talks">
+        <li class="talk a" style="--d:7; --c:#4a5cff"><span class="num">01</span><span class="talk-text"><strong>Ctrl + Shift + Delegate – AI orkestracija u praksi</strong><span><b>Darko Mijić</b> · Head of AI @ Thespian</span></span></li>
+        <li class="talk a" style="--d:8; --c:#9a5cf0"><span class="num">02</span><span class="talk-text"><strong>Dan s agentom – prijelaz na agentski razvoj, dobre strane i ožiljci</strong><span><b>Filip Padežanin</b> · Software Engineer @ Thespian</span></span></li>
+        <li class="talk a" style="--d:9; --c:#d04fc4"><span class="num">03</span><span class="talk-text"><strong>Building Carry: AI s obje strane aplikacije</strong><span><b>Ivan Martinović</b> · Software Engineer @ Carry</span></span></li>
+      </ol>
+
+      <dl class="inv-facts a" style="--d:11">
+        <div><dt>KADA</dt><dd>Utorak, 10. 11.<small>18:00</small></dd><a href="assets/last-human-standing.ics">Kalendar</a></div>
+        <div><dt>GDJE</dt><dd>HUB385<small>Zagreb</small></dd><a data-link="maps" href="#" target="_blank" rel="noopener">Karta</a></div>
+        <div><dt>ULAZ</dt><dd>Besplatan<small>Uz prijavu</small></dd><a data-link="meetup" href="#" target="_blank" rel="noopener">Meetup</a></div>
+      </dl>
     </div>
-    <div class="sheet-body" id="sheetBody"></div>
-    <a class="btn btn-primary" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se na Meetupu</a>
   </div>
-</div>
+  <div class="inv-cta">
+    <a class="btn btn-primary a" style="--d:12" data-link="meetup" href="#" target="_blank" rel="noopener">Prijavi se na Meetupu</a>
+    <button class="icon-btn a" style="--d:13" id="replay" type="button" aria-label="Ponovno skeniraj poster">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2"/><circle cx="12" cy="12" r="3.2"/></svg>
+    </button>
+  </div>
+</section>
 
 <script type="importmap">
 {
